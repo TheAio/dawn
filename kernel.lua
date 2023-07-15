@@ -12,6 +12,29 @@ local function isempty(s) --i robbed this from https://stackoverflow.com/questio
     return s == nil or s == ''
 end
 
+local function PANIC(desc,code)
+    local pCode = tonumber(code)
+    local c = os.clock()
+    if pCode then
+        print("")
+        print("!!! DAWN - KERNEL PANIC !!!")
+        print("Runtime until call:",c.."s")
+        print("Provided reason:",desc)
+        print("System will restart in 10 seconds to attempt to fix the issue.")
+        print("Error code:",code)
+        sleep(10)
+        os.reboot()
+    else
+        print("")
+        print("!!! DAWN - KERNEL PANIC !!!")
+        print("Runtime until call:",c.."s")
+        print("Provided reason:",desc)
+        print("System will restart in 10 seconds to attempt to fix the issue.")
+        sleep(10)
+        os.reboot()
+    end
+end
+
 local k = {}
 
 function k.empty(s) --see line 11
