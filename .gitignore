@@ -6,3 +6,4 @@ etc/sudoers
 etc/ccpcBug
 tmp/
 stat/pkg/sources-list.txt
+test.lua
