@@ -8,7 +8,7 @@ local kern = require("/kernel")
 local handle2
 local args = {...}
 if #args < 1 then
-    print("Usage: pkg (-i/-r/-l/-add-src/-rm-src)")
+    print("Usage: pkg (-i/-r/-l/-u/-add-src/-rm-src)")
     return
 end
 
@@ -16,7 +16,7 @@ if args[1] == "-i" then
     if kern.empty(args[2]) then
         print("<pkg> field left blank")
     else
-        local sources = {}
+    local sources = {}
     local srcs = fs.open("/stat/pkg/sources-list.txt","r")
     repeat
         local a = srcs.readLine()
@@ -141,5 +141,47 @@ elseif args[1] == "-rm-src" then
         end
         reWrite.close()
         textutils.slowWrite("#\n")
+    end
+elseif args[1] == "-u" then
+    if kern.empty(args[2]) then
+        error("pkg -u <pkg> (empty pkg arg)",0)
+    else
+        if fs.exists("/bin/"..args[2]..".lua") then
+            local sources = {}
+        local srcs = fs.open("/stat/pkg/sources-list.txt","r")
+        repeat
+            local a = srcs.readLine()
+            table.insert(sources,a)
+        until a == nil
+        srcs.close()
+        for k,v in pairs(sources) do
+            local handle = assert(http.get(v))
+            print("Hit ["..k.."]:"..v)
+            local pkg = textutils.unserialize(handle.readAll())
+            handle.close()
+                for k,v in pairs(pkg) do
+                    if args[2] == k then
+                        handle2 = assert(http.get(v))
+                        local pkg_info = textutils.unserialize(handle2.readAll())
+                        handle2.close()
+                        print("Name:",pkg_info[1])
+                        print("Version:",pkg_info[2])
+                        print("Description:",pkg_info[3])
+                        write("Update? (y/n)")
+                        local yn = read()
+                            if yn == "y" then
+                                fs.delete("/bin/"..args[2]..".lua")
+                                shell.run("fg wget",pkg_info[4],"/bin/"..args[2]..".lua")
+                            elseif yn == "n" then 
+                                error("Cancelling!",0)
+                            else
+                                kern.scrMSG(5,"Bailed due to invalid input.")
+                            end
+                        end
+                    end
+            end
+        else
+            error("Does not exist: /bin/"..args[2]..".lua",0)
+        end
     end
 end
