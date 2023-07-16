@@ -80,7 +80,7 @@ if args[1] == "-a" then
     UUID = ID
 
     if uHome ~= true then
-        local tWrite = uName..":"..pWord..":"..UUID..":".."/home/"..uName..":".."/usr/bin/"..cShell..".lua"
+        local tWrite = uName..":"..pWord..":"..UUID..":".."nil"..":".."/usr/bin/"..cShell..".lua"
         local handle2 = fs.open("/etc/passwd","a")
         handle2.writeLine(tWrite)
         handle2.close()
@@ -89,6 +89,7 @@ if args[1] == "-a" then
         local handle2 = fs.open("/etc/passwd","a")
         handle2.writeLine(tWrite)
         handle2.close()
+        fs.makeDir("/home/"..uName.."/")
     end
 
     if sudo == true then
@@ -104,9 +105,8 @@ elseif args[1] == "-r" then
     if args[2] == "root" then
         k.scrMSG(5,"root cannot be removed.")
     elseif args[2] == a then
-            k.scrMSG(5,"cannot remove:"..args[2].." (is current user)")
+        k.scrMSG(5,"cannot remove:"..args[2].." (is current user)")
     else
-
         local user
         local passwd = {}
         local handle = fs.open("/etc/passwd","r")
@@ -127,6 +127,9 @@ elseif args[1] == "-r" then
                 end
                 handle2.close()
             end
+        end
+        if fs.exists("/home/"..args[2].."/") then
+            fs.delete("/home/"..args[2].."/")
         end
     end
 elseif args[1] == "-l" then

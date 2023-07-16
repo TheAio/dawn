@@ -58,8 +58,22 @@ print("==================")
 local c = os.clock()
 handle.writeLine("Basic info retrieved in: "..c.."s")
 
-if tSizex < 51 then
-    handle.writeLine("tSizex smaller than required (51)")
+if tSizex == 132 and tSizey == 49 then
+    handle.writeLine("CCPC 'bigscreen' is on from boot")
+    handle.writeLine("Avoiding bug with keys, suggestion will be passed through with dboot.")   
+    print("Avoiding bug with keys, suggestion will be passed through with dboot.")
+    local c = os.clock()
+    handle.writeLine("Reached boot in: "..c.."s")
+    handle.close()
+    if fs.exists("/etc/ccpcBug") then
+        fs.delete("/etc/ccpcBug")
+    end
+    fs.copy("/etc/file","/etc/ccpcBug")
+    sleep(1)
+    shell.run("/boot/dboot.lua")
+else
+    if tSizex < 51 or tSizex > 51 or tSizey < 19 or tSizey > 19 then
+    handle.writeLine("tSizex or tSizey smaller than required (51)")
     print("DAWN is made for standard computers.")
     if not periphemu then
         handle.writeLine("CCPC Not detected")
@@ -73,11 +87,17 @@ if tSizex < 51 then
         handle.writeLine("CCPC detected, hanging to resize")
         print("Please resize the screen until you see the letter 'A' below.")
         repeat
-            sleep(1)
+            sleep(0.01)
+            tSizex, tSizey = term.getSize()
+            term.setCursorPos(1,1)
+            term.clear()
+            print("Please resize the screen until you see '51 19' below.")
+            print(tSizex,tSizey)
         until tSizex == 51 and tSizey == 19
         print("A")
         handle.writeLine("resize success.")
     end
+end
 end
 
 if periphemu then
