@@ -9,3 +9,5 @@ stat/pkg/sources-list.txt
 test.lua
 update/
 home/*
+bin/fetch.lua
+bin/ldisk.lua
