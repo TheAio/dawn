@@ -131,6 +131,25 @@ elseif args[1] == "-r" then
         if fs.exists("/home/"..args[2].."/") then
             fs.delete("/home/"..args[2].."/")
         end
+        
+        local t = {}
+        local handle = fs.open("/etc/sudoers","r")
+        repeat
+            local a = handle.readLine()
+            table.insert(t,a)
+        until a == nil
+        handle.close()
+        fs.delete("/etc/sudoers")
+        for u,v in pairs(t) do
+            if v == args[2] then
+                table.remove(t,u)
+            end
+        end
+        local handle = fs.open("/etc/sudoers","w")
+        for _,v in pairs(t) do
+            handle.writeLine(v)
+        end
+        handle.close()
     end
 elseif args[1] == "-l" then
     local wdpass = {}
