@@ -11,3 +11,4 @@ update/
 home/*
 bin/fetch.lua
 bin/ldisk.lua
+.settings

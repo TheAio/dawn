@@ -151,14 +151,6 @@ elseif args[1] == "-r" then
         end
         handle.close()
     end
-elseif args[1] == "-l" then
-    local wdpass = {}
-    local handle3 = fs.open("/etc/passwd","r")
-    repeat
-        local b = handle3.readLine()
-        table.insert(wdpass,b)
-    until b == nil
-    
 else
-    print("Usage: usr (-a/-r/-l)")
+    print("Usage: usr (-a/-r)")
 end

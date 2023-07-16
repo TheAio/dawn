@@ -1,5 +1,5 @@
 usr - user management
 Usages:
-usr -c --sudo <-y/-n> <nHome/yHome> <username> <password> | create a user
-usr -r --sudo <username> | remove a user
-usr -l | list users
+usr -a <name> <password> <-y/-n> <shell> <-y/-n>
+                         sudo opt        home opt
+usr -r <name>
