@@ -7,3 +7,4 @@
 
 ### /bin/ or /usr/bin/dash.lua
 - [ ] Figure out how to make `cd` and `ls` (copy from rom?)
+- [ ] Simple file browser(?)
