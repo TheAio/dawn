@@ -1,3 +1,4 @@
+# /etc/
 etc/logs/
 etc/usr/
 etc/config/
@@ -9,6 +10,14 @@ stat/pkg/sources-list.txt
 test.lua
 update/
 home/*
-bin/fetch.lua
+
+# /opt/
+opt/*
+
+# /bin/
+bin/ink.lua
 bin/ldisk.lua
+bin/fetch.lua
+
+# .settings
 .settings

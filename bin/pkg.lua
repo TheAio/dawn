@@ -42,11 +42,10 @@ if args[1] == "-i" then
                             shell.run("fg wget",pkg_info[4],"/bin/"..args[2]..".lua")
                         elseif yn == "n" then 
                             error("Cancelling!",0)
-                    else
-                        kern.scrMSG(5,"Bailed due to invalid input.")
-                    end
-                else
-                end
+                        else
+                            kern.scrMSG(5,"Bailed due to invalid input.")
+                        end
+                end --jesus f#^$ i hate vscode's auto fornat of this
             end
         end
     end
