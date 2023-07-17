@@ -133,13 +133,14 @@ else
             if k == 90 then
                 shell.run("/bin/cls.lua")
                 sleep(0.001)
-                handle.writeLine("Booted dbios.")
+                handle.writeLine("Pressed: Z")
                 local c = os.clock()
                 handle.writeLine("Reached boot to dbios in: "..c.."s")
                 handle.close()
                 shell.run("/boot/dbios/init.lua")
             elseif k == 257 then
                 sleep(0.001)
+                handle.writeLine("Pressed: ENTER")
                 local c = os.clock()
                 handle.writeLine("Reached boot in: "..c.."s")
                 handle.close()
