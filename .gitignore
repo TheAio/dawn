@@ -18,6 +18,7 @@ opt/*
 bin/ink.lua
 bin/ldisk.lua
 bin/fetch.lua
+bin/per.lua
 
 # .settings
 .settings
