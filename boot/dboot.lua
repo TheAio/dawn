@@ -43,7 +43,8 @@ if fs.exists("/etc/config/simpleboot") then --The very simple looking one
     local core = {
         "/kernel.lua",
         "/boot/.bootfile",
-        "/boot/dboot.lua",
+        "/boot/dbios/dbios.lua",
+        "/boot/dbios/init.lua",
         "/usr/bin/dash.lua",
         "/etc/.file",
         "/etc/file",
