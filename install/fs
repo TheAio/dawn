@@ -1,0 +1,29 @@
+{
+    "/bin/",
+    "/boot/",
+    "/boot/dbios/",
+    "/boot/dbios/core/"
+    "/dev/",
+    "/etc/",
+    "/etc/config/",
+    "/etc/dash/",
+    "/etc/dash/help/",
+    "/etc/dawn/",
+    "/etc/logs/",
+    "/etc/usr/"
+    "/home/",
+    "/lib/",
+    "/mnt/",
+    "/sbin/",
+    "/stat/",
+    "/stat/pkg/",
+    "/sys/",
+    "/tmp/",
+    "/usr/",
+    "/usr/bin/",
+    "/usr/lib/",
+    "/usr/local/",
+    "/usr/sbin/",
+    "/usr/share/",
+    "/var/"
+}

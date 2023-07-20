@@ -5,6 +5,8 @@ etc/config/
 etc/passwd
 etc/sudoers
 etc/ccpcBug
+
+# uncategorized
 tmp/
 stat/pkg/sources-list.txt
 test.lua
