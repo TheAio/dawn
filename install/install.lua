@@ -2,12 +2,13 @@
 
 local handle
 
-handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/install/fs"))
-local rfs = textutils.unserialise(handle.readAll())
-handle.close()
-handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/install/files"))
-local files = textutils.unserialiseJSON(handle.readAll())
-handle.close()
+local fshandle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/install/fs"))
+local rfs = textutils.unserialise(fshandle.readAll())
+fshandle.close()
+
+local fihandle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/install/files"))
+local files = textutils.unserialiseJSON(fihandle.readAll())
+fihandle.close()
 
 local function e(s)
     return s == nil or s == ""
