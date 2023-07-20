@@ -3,7 +3,7 @@
 local handle
 
 handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/install/fs"))
-local rfs = textutils.unserialiseJSON(handle.readAll())
+local rfs = textutils.unserialise(handle.readAll())
 handle.close()
 handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/install/files"))
 local files = textutils.unserialiseJSON(handle.readAll())
