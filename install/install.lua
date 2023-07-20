@@ -6,7 +6,7 @@ handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev
 local rfs = textutils.unserialise(handle.readAll())
 handle.close()
 handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/install/files"))
-local file = textutils.unserialise(handle.readAll())
+local files = textutils.unserialise(handle.readAll())
 handle.close()
 
 local function e(s)
@@ -68,7 +68,7 @@ for k,v in pairs(rfs) do
 end
 print("done")
 write("MAKE: core...")
-for k,v in pairs(file) do
-    shell.run("fg wget https://raw.githubusercontent.com/XDuskAshes/dawn/idev/"..v,"/"..v)
+for k,v in pairs(files) do
+    shell.run("fg wget https://raw.githubusercontent.com/XDuskAshes/dawn/idev"..v,v)
 end
 print("done")
