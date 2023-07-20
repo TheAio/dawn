@@ -6,7 +6,7 @@ handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev
 local rfs = textutils.unserialiseJSON(handle.readAll())
 handle.close()
 handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/install/files"))
-local files = textutils.unserialiseJOSN(handle.readAll())
+local files = textutils.unserialiseJSON(handle.readAll())
 handle.close()
 
 local function e(s)
