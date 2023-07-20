@@ -38,6 +38,6 @@
     "/stat/.dawninf",
     "/stat/.osinf",
     "/stat/pkg/.inf",
-    "/stat/pkg/sources-list.txt"
-    "/usr/bin/dash.lua",
+    "/stat/pkg/sources-list.txt",
+    "/usr/bin/dash.lua"
 }

@@ -1,7 +1,11 @@
 --dawn installer
 
-local fs = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/install/fs"))
-local file = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/install/files"))
+local fsHandle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/install/fs"))
+local fs = textutils.unserialise(fsHandle.readAll())
+fsHandle.close()
+local fileHandle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/install/files"))
+local file = textutils.unserialise(fileHandle.readAll())
+fileHandle.close()
 
 local function e(s)
     return s == nil or s == ""
@@ -55,3 +59,7 @@ else
 end
 
 print("Please note that as of now, this installer works with 'idev' branch only.")
+print("The basefs will now be made.")
+for k,v in pairs(fs) do
+    fs.makeDir(v)
+end

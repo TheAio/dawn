@@ -2,7 +2,7 @@
     "/bin/",
     "/boot/",
     "/boot/dbios/",
-    "/boot/dbios/core/"
+    "/boot/dbios/core/",
     "/dev/",
     "/etc/",
     "/etc/config/",
@@ -10,7 +10,7 @@
     "/etc/dash/help/",
     "/etc/dawn/",
     "/etc/logs/",
-    "/etc/usr/"
+    "/etc/usr/",
     "/home/",
     "/lib/",
     "/mnt/",
