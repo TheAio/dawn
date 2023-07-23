@@ -84,3 +84,24 @@ for k,v in pairs(files) do
     print("DONE:",v)
 end
 print("done")
+print("Writing user data of "..user.." to /etc/passwd")
+local handle = fs.open("/etc/passwd","a")
+handle.write(user..":"..password..":1:")
+if home == true then
+    fs.makeDir("/home/"..user)
+    handle.write("/home/"..user..":")
+else
+    handle.write("nil:")
+end
+handle.write("/usr/bin/dash.lua\n")
+handle.close()
+print("done")
+if sudo == true then
+    print("Writing "..user.." to /etc/sudoers")
+    local handle = fs.open("/etc/sudoers","a")
+    handle.writeLine(user)
+    handle.close()
+end
+print("Install complete. Rebooting in 3 seconds.")
+sleep(3)
+os.reboot()
