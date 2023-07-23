@@ -53,9 +53,6 @@ while true do
         write("")
     elseif input == "reboot" then
         shell.run("/sbin/r.lua")
-    elseif input == "login" then
-        error()
-        shell.run("/bin/login.lua")
     else
         shell.run("/bin/"..input)
     end
