@@ -70,18 +70,17 @@ else
     sudo = true
 end
 
+term.clear()
+term.setCursorPos(1,1)
 print("Please note that as of now, this installer works with 'idev' branch only.")
-write("MAKE: basefs...")
 for k,v in pairs(rfs) do
     fs.makeDir(v)
     sleep(0.001)
 end
-print("done")
-write("MAKE: core...")
+print("done basefs")
+print("Get core...")
 for k,v in pairs(files) do
-    shell.run("fg wget https://raw.githubusercontent.com/XDuskAshes/dawn/idev/"..v,v)
-    sleep(0.01)
-    print("DONE:",v)
+    shell.run("wget https://raw.githubusercontent.com/XDuskAshes/dawn/idev/"..v,v)
 end
 print("done")
 print("Writing user data of "..user.." to /etc/passwd")
