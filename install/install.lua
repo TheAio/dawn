@@ -2,12 +2,21 @@
 
 local handle
 
+local rfs = {}
+local files = {}
+
 local fshandle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/install/fs"))
-local rfs = textutils.unserialise(fshandle.readAll())
+repeat
+    local a = fshandle.readLine()
+    table.insert(rfs,a)
+until a == nil
 fshandle.close()
 
 local fihandle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/install/files"))
-local files = textutils.unserialiseJSON(fihandle.readAll())
+repeat
+    local a = fihandle.readLine()
+    table.insert(files,a)
+until a == nil
 fihandle.close()
 
 local function e(s)
@@ -70,6 +79,6 @@ end
 print("done")
 write("MAKE: core...")
 for k,v in pairs(files) do
-    shell.run("fg wget https://raw.githubusercontent.com/XDuskAshes/dawn/idev"..v,v)
+    shell.run("fg wget https://raw.githubusercontent.com/XDuskAshes/dawn/idev/"..v,v)
 end
 print("done")

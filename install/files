@@ -1,43 +1,41 @@
-{
-    "/kernel.lua",
-    "/startup.lua",
-    "/LICENSE",
-    "/README.txt",
-    "/thanks.txt",
-    "/bin/cat.lua",
-    "/bin/cls.lua",
-    "/bin/help.lua",
-    "/bin/label.lua",
-    "/bin/login.lua",
-    "/bin/phone.lua",
-    "/bin/pkg.lua",
-    "/bin/usr.lua",
-    "/boot/dboot.lua",
-    "/boot/dbios/init.lua",
-    "/boot/dbops/dbios.lua",
-    "/boot/dbios/core/config.lua",
-    "/boot/dbios/core/reboot.lua",
-    "/boot/dbios/core/set.lua",
-    "/etc/file",
-    "/etc/.file",
-    "/etc/passwd",
-    "/etc/sudoers",
-    "/etc/config/",
-    "/etc/dash/commlist",
-    "/etc/dash/help/cat",
-    "/etc/dash/help/cls",
-    "/etc/dash/help/help",
-    "/etc/dash/help/label",
-    "/etc/dash/help/login",
-    "/etc/dash/help/per",
-    "/etc/dash/help/phone",
-    "/etc/dash/help/pkg",
-    "/etc/dash/help/usr"
-    "/etc/dawn/logo.nfp",
-    "/sbin/r.lua",
-    "/stat/.dawninf",
-    "/stat/.osinf",
-    "/stat/pkg/.inf",
-    "/stat/pkg/sources-list.txt",
-    "/usr/bin/dash.lua"
-}
+/kernel.lua
+/startup.lua
+/LICENSE
+/README.txt
+/thanks.txt
+/bin/cat.lua
+/bin/cls.lua
+/bin/help.lua
+/bin/label.lua
+/bin/login.lua
+/bin/phone.lua
+/bin/pkg.lua
+/bin/usr.lua
+/boot/dboot.lua
+/boot/dbios/init.lua
+/boot/dbops/dbios.lua
+/boot/dbios/core/config.lua
+/boot/dbios/core/reboot.lua
+/boot/dbios/core/set.lua
+/etc/file
+/etc/.file
+/etc/passwd
+/etc/sudoers
+/etc/config/
+/etc/dash/commlist
+/etc/dash/help/cat
+/etc/dash/help/cls
+/etc/dash/help/help
+/etc/dash/help/label
+/etc/dash/help/login
+/etc/dash/help/per
+/etc/dash/help/phone
+/etc/dash/help/pkg
+/etc/dash/help/usr
+/etc/dawn/logo.nfp
+/sbin/r.lua
+/stat/.dawninf
+/stat/.osinf
+/stat/pkg/.inf
+/stat/pkg/sources-list.txt
+/usr/bin/dash.lua
