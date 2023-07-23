@@ -80,5 +80,7 @@ print("done")
 write("MAKE: core...")
 for k,v in pairs(files) do
     shell.run("fg wget https://raw.githubusercontent.com/XDuskAshes/dawn/idev/"..v,v)
+    sleep(0.01)
+    print("DONE:",v)
 end
 print("done")
