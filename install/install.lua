@@ -81,6 +81,7 @@ print("done basefs")
 print("Get core...")
 for k,v in pairs(files) do
     shell.run("wget https://raw.githubusercontent.com/XDuskAshes/dawn/idev/"..v,v)
+    sleep(0.1)
 end
 print("done")
 print("Writing user data of "..user.." to /etc/passwd")
@@ -101,6 +102,13 @@ if sudo == true then
     handle.writeLine(user)
     handle.close()
 end
-print("Install complete. Rebooting in 3 seconds.")
+print("Performing final parts: copy /rom/programs/cd.lua and /rom/programs/list.lua to /bin/")
+
+fs.copy("/rom/programs/cd.lua","/bin/cd.lua")
+print("cd done")
+fs.copy("/rom/programs/list.lua","/bin/ls.lua")
+print("ls done")
+print("Restarting in 3 seconds.")
+
 sleep(3)
 os.reboot()

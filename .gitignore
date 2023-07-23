@@ -21,6 +21,8 @@ bin/ink.lua
 bin/ldisk.lua
 bin/fetch.lua
 bin/per.lua
+bin/cd.lua
+bin/ls.lua
 
 # .settings
 .settings
