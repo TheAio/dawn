@@ -56,5 +56,10 @@ while true do
     else
         shell.run("/bin/"..input)
     end
+    if fs.exists("/home/"..user.."/") then
+        local handle = fs.open("/home/"..user.."/.dashhistory","a")
+        handle.writeLine(input)
+        handle.close()
+    end
     t()
 end
