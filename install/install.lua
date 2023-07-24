@@ -42,7 +42,7 @@ end
 
 print("Password:")
 write("> ")
-local password = read()
+local password = read("#")
 if e(password) then
     password = "1234"
     printError("Password cannot be empty. (DEFAULT: 1234)")
@@ -73,6 +73,7 @@ end
 term.clear()
 term.setCursorPos(1,1)
 print("Please note that as of now, this installer works with 'idev' branch only.")
+sleep(1)
 for k,v in pairs(rfs) do
     fs.makeDir(v)
     sleep(0.001)
