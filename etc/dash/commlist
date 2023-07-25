@@ -8,3 +8,8 @@ per (unusable atm)
 pkg <-i <pkg>/-r <pkg>/-l>
 usr
 phone <file,line>
+ls <path>
+cd <path>
+edit <file>
+rm <-rf/<path>/<file>>
+touch <file>

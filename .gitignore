@@ -23,6 +23,7 @@ bin/fetch.lua
 bin/per.lua
 bin/cd.lua
 bin/ls.lua
+bin/edit.lua
 
 # .settings
 .settings
