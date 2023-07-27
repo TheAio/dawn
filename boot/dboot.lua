@@ -24,7 +24,40 @@ handle2.close()
 
 
 if fs.exists("/etc/config/simpleboot") then --simple looking boot anim ( [ ########## ] )
-    
+    term.setCursorPos(11,8)
+    print("Dawn is booting, please wait.")
+    term.setCursorPos(18,10)
+    write("[ ---------- ]")
+    term.setCursorPos(20,10)
+    for i,v in pairs(bfs) do
+        if fs.exists(v) ~= true then
+            fs.makeDir(v)
+            k.scrMSG(4,v.." doesn't exist. dir made.")
+            os.reboot()
+        end
+        sleep(0.01)
+    end
+
+    textutils.slowWrite("#####")
+
+    for i,v in pairs(bfiles) do
+        if fs.exists(v) ~= true then
+            k.scrMSG(4,v.." doesn't exist. download.")
+            shell.run("wget","https://raw.githubusercontent.com/XDuskAshes/dawn/idev/"..v,v)
+            os.reboot()
+        end
+        sleep(0.01)
+    end
+
+    textutils.slowWrite("#####")
+
+    term.setCursorPos(6,8)
+    sleep(0.1)
+    print("Dawn has finished booting. Going to login.")
+    sleep(1)
+    term.clear()
+    term.setCursorPos(1,1)
+    shell.run("/bin/login.lua")
 else --logging and such
     for i,v in pairs(bfs) do
         if fs.exists(v) ~= true then
@@ -39,10 +72,16 @@ else --logging and such
     for i,v in pairs(bfiles) do
         if fs.exists(v) ~= true then
             k.scrMSG(4,v.." doesn't exist. download.")
-            shell.run("wget",v,v)
+            shell.run("wget","https://raw.githubusercontent.com/XDuskAshes/dawn/idev/"..v,v)
         else
             k.scrMSG(1,v.." exists")
         end
-        sleep(1)
+        sleep(0.01)
     end
+
+    if fs.exists("/tmp/ccpcBug") then
+        fs.delete("/tmp/ccpcBug")
+        k.scrMSG(3,"dbios can be entered as a username")
+    end
+    shell.run("/bin/login.lua")
 end
