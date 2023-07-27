@@ -1,0 +1,3 @@
+--system management stuff
+--must always be run with sudo no matter what, obvs
+--stuff like system configs etc will be moved to here

@@ -1,4 +1,4 @@
-Dawn Kernel
+Dawn OS
 By Dusk
 Development start (1.0.0): Tuesday June 6th, 2023 at 9:00PM
 Development end (1.0.0): TBD
@@ -7,16 +7,14 @@ Development end (1.0.0): TBD
 
 What is this?
 
-It's a CC OS kernel, coming with a filesystem, custom terminal, libraries, programs, and a configs folder right out of the box.
-it's a very heavy WIP, so do be patient. I will also provide an installer script to put in your OS installer so that you don't need to
-have your theoretical end user run two installers, or even have your script run a second installer.
+This was originally a CC OS Kernel, but is now shaping into a full-fledged OS, and will be re-labelled as such everywhere possible.
+It comes with an FHS based filesystem, 
 
 Will you code absolutely everything on your own?
 
 Oh absolutely not. I'll obviously code things like the kernel and terminal myself, but anything that isn't signed personally is from
-someone probably far more talented than me. In terms of using libraries and such from others, they will be added via the 'libsinstall'
-script on the release branch. In this branch, however, they will just be there as the libraries themselves for developmental purposes.
-There won't be an idev install snippet, if you want the idev stuff, get it yourself with wgets.
+someone probably far more talented than me. In terms of using libraries and such from others, they will be added with the installer script
+by default.
 
 Will you be open to contributions?
 
