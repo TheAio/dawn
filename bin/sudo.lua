@@ -1,0 +1,57 @@
+--sudo lets go wahoo
+
+local args = {...}
+local k = require "/kernel"
+
+if fs.exists("/bin/"..args[1]..".lua") ~= true then
+    error(args[1].." don't exist my duuuude",0)
+elseif k.empty(args[1]) then
+    error("sudo needs target program")
+end
+
+--commiting another quite literal robbery from touch
+if fs.exists("/etc/usr/.login") then
+    local handle = fs.open("/etc/usr/.login","r")
+    local user = handle.readLine()
+    handle.close()
+
+    local handle2 = fs.open("/etc/sudoers","r")
+    repeat
+        local a = handle2.readLine()
+        if a == nil then
+            error("User does not have sudo permissions.",0)
+        end
+    until a == user
+    handle2.close()
+
+    local handle3 = fs.open("/etc/passwd","r")
+    repeat
+        local a = handle3.readLine()
+        if a == nil then
+            os.reboot()
+        end
+        --Ideally, we want no unused data, which is useless ram usage.
+        --However, I don't want to break the matching.
+        local usr, id, home, cshell = "", "foo", "bar", "gab"
+        usr, pass, id, home, cshell = string.match(a, "([^:]+):([^:]+):([^:]+):([^:]+):([^:]+)")
+        if user == nil then
+            error("No user found.",0)
+        end
+    until user == usr
+    write("Password: ")
+    local input = read("#")
+    if input == pass then
+        table.remove(args,0)
+        local toRun = args[1]
+        table.remove(args,1)
+        for _,v in pairs(args) do
+            toRun = toRun.." "..v
+        end
+        fs.copy("/etc/file","/tmp/sudo")
+        shell.run("/bin/"..toRun)
+    else
+        error("Password doesn't match.",0)
+    end
+else
+    error("/etc/usr/.login doesn't exist: cannot discern user.")
+end

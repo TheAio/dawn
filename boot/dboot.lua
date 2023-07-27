@@ -124,7 +124,7 @@ else --the logging one
     local tSizex, tSizey = term.getSize()
 
     if not periphemu then
-        kernel.scrMSG(3,"Did not detect 'periphemu'. Assuming env is in-game.")
+        kernel.scrMSG(3,"Did not detect 'periphemu'. Assuming env is in-game or CCEmuX.")
     else
         kernel.scrMSG(3,"Detected 'periphemu'. Assuming env is CCPC.")
     end

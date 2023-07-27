@@ -5,12 +5,12 @@
 
 local kernel = require "/kernel"
 
-if fs.exists("/etc/ccpcBug") then
+if fs.exists("/tmp/ccpcBug") then
     kernel.scrMSG(3,"dbios can be launched at user prompt as 'dbios'")
 end
 
 kernel.scrMSG(1,"Reached: login")
-fs.delete("/etc/ccpcBug")
+fs.delete("/tmp/ccpcBug")
 
 local function isempty(s) --i robbed this from https://stackoverflow.com/questions/19664666/check-if-a-string-isnt-nil-or-empty-in-lua
     return s == nil or s == ''

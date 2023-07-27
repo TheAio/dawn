@@ -110,15 +110,15 @@ if periphemu then
 end
 
 if periphemu then
-    handle.writeLine("Avoiding bug with keys, suggestion will be passed through with dboot.")   
-    print("Avoiding bug with keys, suggestion will be passed through with dboot.")
+    handle.writeLine("Avoiding bug with keys, suggestion will be passed through with login.")   
+    print("Avoiding bug with keys, suggestion will be passed through with login.")
     local c = os.clock()
     handle.writeLine("Reached boot in: "..c.."s")
     handle.close()
-    if fs.exists("/etc/ccpcBug") then
-        fs.delete("/etc/ccpcBug")
+    if fs.exists("/tmp/ccpcBug") then
+        fs.delete("/tmp/ccpcBug")
     end
-    fs.copy("/etc/file","/etc/ccpcBug")
+    fs.copy("/etc/file","/tmp/ccpcBug")
     sleep(1)
     shell.run("/boot/dboot.lua")
 else
