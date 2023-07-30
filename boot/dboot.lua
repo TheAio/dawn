@@ -44,7 +44,6 @@ if fs.exists("/etc/config/simpleboot") then --simple looking boot anim ( [ #####
     textutils.slowWrite("#####")
 
     for i,v in pairs(bfiles) do
-        print(v)
         if fs.exists(v) ~= true then
             handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/"..v))
             local toWrite = {}
