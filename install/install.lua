@@ -80,7 +80,6 @@ end
 print("done basefs")
 print("Get core...")
 for k,v in pairs(files) do
-    print(v)
     handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/"..v))
             local toWrite = {}
             repeat
