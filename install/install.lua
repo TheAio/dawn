@@ -73,12 +73,12 @@ term.clear()
 term.setCursorPos(1,1)
 print("Please note that as of now, this installer works with 'idev' branch only.")
 sleep(1)
+write("make basefs...")
 for k,v in pairs(rfs) do
     fs.makeDir(v)
-    sleep(0.001)
 end
-print("done basefs")
-print("Get core...")
+print("done")
+write("get core...")
 for k,v in pairs(files) do
     handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/"..v))
             local toWrite = {}
@@ -92,11 +92,9 @@ for k,v in pairs(files) do
                 handle.writeLine(v)
             end
             handle.close()
-    sleep(0.01)
 end
-handle.close()
 print("done")
-print("Writing user data of "..user.." to /etc/passwd")
+write("write user data of "..user.." to /etc/passwd...")
 handle = fs.open("/etc/passwd","a")
 handle.write(user..":"..password..":1:")
 if home == true then
@@ -109,21 +107,20 @@ handle.write("/usr/bin/dash.lua\n")
 handle.close()
 print("done")
 if sudo == true then
-    print("Writing "..user.." to /etc/sudoers")
+    write("write "..user.." to /etc/sudoers...")
     local handle = fs.open("/etc/sudoers","a")
     handle.writeLine(user)
     handle.close()
 end
+print("done")
 
-print("Performing final parts: ls, cd, and edit from /rom/ to /bin/")
+write("copy ls, cd, and edit from /rom/ to /bin/")
 
 fs.copy("/rom/programs/cd.lua","/bin/cd.lua")
-print("cd done")
 fs.copy("/rom/programs/list.lua","/bin/ls.lua")
-print("ls done")
 fs.copy("/rom/programs/edit.lua","/bin/edit.lua")
-print("edit done")
-print("Restarting in 3 seconds.")
+print("done")
 
+print("Restarting in 3 seconds.")
 sleep(3)
 os.reboot()
