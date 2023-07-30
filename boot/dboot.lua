@@ -1,8 +1,6 @@
 --dawn default boot program
 --by dusk
 
-local k = require "/kernel"
-
 term.clear()
 term.setCursorPos(1,1)
 
@@ -74,19 +72,19 @@ else --logging and such
     for i,v in pairs(bfs) do
         if fs.exists(v) ~= true then
             fs.makeDir(v)
-            k.scrMSG(4,v.." doesn't exist. dir made.")
+            printError(4,v.." doesn't exist. dir made.")
         else
-            k.scrMSG(1,v.." exists")
+            print(1,v.." exists")
         end
         sleep(0.01)
     end
 
     for i,v in pairs(bfiles) do
         if fs.exists(v) ~= true then
-            k.scrMSG(4,v.." doesn't exist. download.")
+            printError(4,v.." doesn't exist. download.")
             shell.run("wget","https://raw.githubusercontent.com/XDuskAshes/dawn/idev/"..v,v)
         else
-            k.scrMSG(1,v.." exists")
+            print(1,v.." exists")
         end
         sleep(0.01)
     end
