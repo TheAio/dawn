@@ -29,6 +29,7 @@
 /etc/sudoers
 /etc/dawn/logo.nfp
 /etc/dawn/sh-default
+/etc/commlist
 /sbin/r.lua
 /stat/.dawninf
 /stat/.osinf
