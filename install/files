@@ -28,7 +28,6 @@
 /etc/passwd
 /etc/sudoers
 /etc/config/
-/etc/dash/commlist
 /etc/dawn/logo.nfp
 /etc/dawn/sh-default
 /sbin/r.lua
