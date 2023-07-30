@@ -4,6 +4,8 @@
     Downloads ignore from https://raw.githubusercontent.com/XDuskAshes/dawn/pkgs/pkg-ignore
 ]]
 
+local spinner = {"|","/","-","\\"}
+local stage = 0
 local kern = require("/kernel")
 local handle2
 local args = {...}
@@ -30,23 +32,50 @@ if args[1] == "-i" then
         table.insert(sources,a)
     until a == nil
     srcs.close()
+    local x,y = term.getCursorPos()
     for k,v in pairs(sources) do
         local handle = assert(http.get(v))
-        print("Hit ["..k.."]:"..v)
+        term.setCursorPos(x,y)
+        stage = (stage % 4) + 1
+        write("look for: "..args[2] .." ".. spinner[stage].." ")
         local pkg = textutils.unserialize(handle.readAll())
         handle.close()
             for k,v in pairs(pkg) do
                 if args[2] == k then
+                    write("\n")
                     handle2 = assert(http.get(v))
                     local pkg_info = textutils.unserialize(handle2.readAll())
                     handle2.close()
                     print("Name:",pkg_info[1])
                     print("Version:",pkg_info[2])
                     print("Description:",pkg_info[3])
+                    print(pkg_info[4])
                     write("Install? (y/n)")
                     local yn = read()
                         if yn == "y" then
-                            shell.run("fg wget",pkg_info[4],"/bin/"..args[2]..".lua")
+                            local x,y = term.getCursorPos()
+                            handle = assert(http.get(pkg_info[4]))
+                            local toWrite = {}
+                            local x,y = term.getCursorPos()
+                                repeat
+                                    local a = handle.readLine()
+                                    table.insert(toWrite,a)
+                                    term.setCursorPos(x,y)
+                                    stage = (stage % 4) + 1
+                                    write("write data to table " .. spinner[stage].." ")
+                                until a == nil
+                                write("Done. \n")
+                            handle.close()
+                            handle = fs.open("/bin/"..args[2]..".lua","w")
+                            x,y = term.getCursorPos()
+                            for _,v in pairs(toWrite) do
+                                handle.writeLine(v)
+                                term.setCursorPos(x,y)
+                                stage = (stage % 4) + 1
+                                write("get "..args[2] .." ".. spinner[stage].." ")
+                            end
+                            handle.close()
+                            print("Done.")
                         elseif yn == "n" then 
                             error("Cancelling!",0)
                         else
