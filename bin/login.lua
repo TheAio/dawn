@@ -36,7 +36,7 @@ if userlog == "dbios" then
 end
 
 write("Password:")
-local userpass = read()
+local userpass = read("#")
 if isempty(userpass) then
     os.reboot()
 end

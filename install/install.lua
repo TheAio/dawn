@@ -1,4 +1,8 @@
 --dawn installer
+
+local spinner = {"|","/","-","\\"}
+local stage = 0
+
 local handle
 
 local rfs = {}
@@ -76,7 +80,12 @@ sleep(1)
 write("make basefs...")
 for k,v in pairs(rfs) do
     fs.makeDir(v)
+    term.setCursorPos(1,3)
+    stage = (stage % 4) + 1
+    write("make basefs " .. spinner[stage].." ")
+    sleep(0.01)
 end
+stage = 0
 print("done")
 write("get core...")
 for k,v in pairs(files) do
@@ -92,6 +101,9 @@ for k,v in pairs(files) do
                 handle.writeLine(v)
             end
             handle.close()
+            term.setCursorPos(1,4)
+stage = (stage % 4) + 1
+write("get core... " .. spinner[stage].." ")
 end
 print("done")
 write("write user data of "..user.." to /etc/passwd...")
