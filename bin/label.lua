@@ -5,6 +5,10 @@
 
 local args = {...}
 
+if args[1] == "-h" then
+    print("Usage: label (-s <label>/-c/-d)")
+end
+
 if args[1] == nil or args[1] == "" then
     print("Usage: label (-s <label>/-c/-d)")
 end

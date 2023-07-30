@@ -6,6 +6,8 @@ local args = {...}
 
 if k.empty(args[1]) then
     print("Usage: cat <file>")
+elseif args[1] == "-h" then
+    print("Usage: cat <file>")
 else
     if fs.exists(args[1]) then
         local t = {}

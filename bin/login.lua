@@ -51,7 +51,7 @@ repeat
     if a == nil then
         os.reboot()
     end
-    user, pass, id, home, cshell = string.match(a, "([^:]+):([^:]+):([^:]+):([^:]+):([^:]+)")
+    user, pass, id, home, cshell = string.match(a, "([^:]+):([^:]+):([^:]+):([^:]+):([^:]+)") --check users info. name, shell, id, password, etc
     if user == nil then
         kernel.scrMSG(4,"No user found.")
         sleep(1)
@@ -68,9 +68,23 @@ repeat
     local handle2 = fs.open("/etc/usr/.login","w")
     handle2.writeLine(user)
     handle2.close()
+    local defaultsh = fs.open("/etc/dawn/sh-default","r")
+    local sh = defaultsh.readLine()
+    defaultsh.close()
+
     if fs.exists(cshell) then
         shell.run(cshell)
     else
-        kernel.scrMSG(2,cshell.." does not exist. Use /usr/bin/dash")
-        shell.run("/usr/bin/dash.lua")
+        if fs.exists("/usr/bin/"..sh)  then
+            print(cshell,"does not exist, using /usr/bin/"..sh)
+            shell.run("/usr/bin/"..sh)
+        else
+            print(cshell,"and /usr/bin/"..sh,"don't exist, use dash or download it")
+            if fs.exists("/usr/bin/dash.lua") then
+                shell.run("/usr/bin/dash.lua")
+            else
+                shell.run("wget https://raw.githubusercontent.com/XDuskAshes/dawn/idev/usr/bin/dash.lua /usr/bin/dash.lua")
+                shell.run("/usr/bin/dash.lua")
+            end
+        end
     end

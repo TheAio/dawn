@@ -10,6 +10,13 @@ local args = {...}
 if #args < 1 then
     print("Usage: pkg (-i/-r/-l/-u/-add-src/-rm-src)")
     return
+elseif args[1] == "-h" then
+    print("pkg - package manager")
+    print("pkg -u <pkg> | Update a package")
+    print("pkg -i <pkg> | Install a package")
+    print("pkg -r <pkg> | Remove a package")
+    print("pkg -l | List all packages, installed or not")
+    print("pkg -add-src/-rm-src <src> | Add or remove src links")
 end
 
 if args[1] == "-i" then

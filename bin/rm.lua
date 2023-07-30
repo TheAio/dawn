@@ -4,6 +4,13 @@
 
 local args = {...}
 
+if args[1] == "-h" then
+    print("rm - remove files and directories")
+    print("(must be run with sudo, mind you (sudo rm <file/-rf <dir))")
+    print("rm <file> - remove a file")
+    print("rm -rf <dir> - remove a dir")
+end
+
 if fs.exists("/tmp/sudo") then --if sudo was called
     fs.delete("/tmp/sudo")
     

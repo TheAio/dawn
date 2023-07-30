@@ -1,5 +1,0 @@
-usr - user management
-Usages:
-usr -a <name> <password> <-y/-n> <shell> <-y/-n>
-                         sudo opt        home opt
-usr -r <name>

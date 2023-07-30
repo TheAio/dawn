@@ -5,16 +5,15 @@ etc/config/
 etc/passwd
 etc/sudoers
 etc/ccpcBug
+etc/dump/*
 
 # uncategorized
-tmp/
+tmp/*
 stat/pkg/sources-list.txt
 test.lua
 update/
 home/*
-
-# /opt/
-opt/*
+var/dump/*
 
 # /bin/
 bin/ink.lua

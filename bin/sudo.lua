@@ -5,8 +5,14 @@ local k = require "/kernel"
 
 if fs.exists("/bin/"..args[1]..".lua") ~= true then
     error(args[1].." don't exist my duuuude",0)
-elseif k.empty(args[1]) then
+end
+
+if k.empty(args[1]) then
     error("sudo needs target program")
+end
+
+if fs.exists("/tmp/sudo") then
+    shell.run("rm /tmp/sudo")
 end
 
 --commiting another quite literal robbery from touch

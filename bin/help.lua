@@ -25,15 +25,4 @@ if args[1] == "-l" then
         for k,v in pairs(i) do
             print(v)
         end
-elseif kernel.empty(args[1]) then
-    print("No empty args[1]")
-else
-    local a = fs.open("/etc/dash/help/"..args[1],"r")
-    if a == nil then
-        kernel.scrMSG(4,"Cannot get: '"..args[1].."' (nil value)")
-    else
-        local content = a.readAll()
-        a.close()
-        print(content)
-    end
 end

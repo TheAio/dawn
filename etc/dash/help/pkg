@@ -1,7 +1,0 @@
-pkg - package manager
-Usages:
-pkg -i <pkg> | install package
-pkg -r <pkg> | uninstall package
-pkg -l | list all packages
-pkg -add-src <src> | add a source
-pkg -rm-src <src> | remove a source
