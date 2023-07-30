@@ -22,6 +22,11 @@ local handle2 = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/da
     until a == nil
 handle2.close()
 
+local fromROM = {
+    "[ /bin/cd.lua ]" == "/rom/programs/cd.lua",
+    "[ /bin/ls.lua ]" == "/rom/programs/list.lua",
+    "[ /bin/edit.lua ]" == "/rom/programs/edit.lua"
+}
 
 if fs.exists("/etc/config/simpleboot") then --simple looking boot anim ( [ ########## ] )
     term.setCursorPos(11,8)
@@ -32,8 +37,6 @@ if fs.exists("/etc/config/simpleboot") then --simple looking boot anim ( [ #####
     for i,v in pairs(bfs) do
         if fs.exists(v) ~= true then
             fs.makeDir(v)
-            k.scrMSG(4,v.." doesn't exist. dir made.")
-            os.reboot()
         end
         sleep(0.01)
     end
@@ -42,9 +45,18 @@ if fs.exists("/etc/config/simpleboot") then --simple looking boot anim ( [ #####
 
     for i,v in pairs(bfiles) do
         if fs.exists(v) ~= true then
-            k.scrMSG(4,v.." doesn't exist. download.")
-            shell.run("wget","https://raw.githubusercontent.com/XDuskAshes/dawn/idev/"..v,v)
-            os.reboot()
+            handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/"..v))
+            local toWrite = {}
+            repeat
+                local a = handle.readLine()
+                table.insert(toWrite,a)
+            until a == nil
+            handle.close()
+            handle = fs.open(v,"w")
+            for _,v in pairs(toWrite) do
+                handle.writeLine(v)
+            end
+            handle.close()
         end
         sleep(0.01)
     end

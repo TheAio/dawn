@@ -9,7 +9,7 @@ local kernel = require "/kernel"
 local args = {...}
 if #args < 1 then
     local t = {}
-    local handle = fs.open("/etc/dash/commlist","r")
+    local handle = fs.open("/etc/commlist","r")
     repeat
         local a = handle.readLine()
         table.insert(t,a)

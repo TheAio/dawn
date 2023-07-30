@@ -95,7 +95,18 @@ end
 print("done basefs")
 print("Get core...")
 for k,v in pairs(files) do
-    shell.run("wget https://raw.githubusercontent.com/XDuskAshes/dawn/idev/"..v,v)
+    handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/"..v))
+            local toWrite = {}
+            repeat
+                local a = handle.readLine()
+                table.insert(toWrite,a)
+            until a == nil
+            handle.close()
+            handle = fs.open(v,"w")
+            for _,v in pairs(toWrite) do
+                handle.writeLine(v)
+            end
+            handle.close()
     handle.writeLine("Got: https://raw.githubusercontent.com/XDuskAshes/dawn/idev/"..v" as "..v)
     sleep(0.01)
 end
