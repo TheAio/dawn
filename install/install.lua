@@ -114,7 +114,7 @@ if sudo == true then
 end
 print("done")
 
-write("copy ls, cd, and edit from /rom/ to /bin/")
+write("copy ls, cd, and edit from '/rom/' to '/bin/'...")
 
 fs.copy("/rom/programs/cd.lua","/bin/cd.lua")
 fs.copy("/rom/programs/list.lua","/bin/ls.lua")
