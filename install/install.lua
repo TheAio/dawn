@@ -75,7 +75,6 @@ print("Please note that as of now, this installer works with 'idev' branch only.
 sleep(1)
 for k,v in pairs(rfs) do
     fs.makeDir(v)
-    handle.writeLine("made: "..v)
     sleep(0.001)
 end
 print("done basefs")
