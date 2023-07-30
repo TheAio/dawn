@@ -27,7 +27,6 @@
 /etc/.file
 /etc/passwd
 /etc/sudoers
-/etc/config/
 /etc/dawn/logo.nfp
 /etc/dawn/sh-default
 /sbin/r.lua
