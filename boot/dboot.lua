@@ -72,9 +72,9 @@ else --logging and such
     for i,v in pairs(bfs) do
         if fs.exists(v) ~= true then
             fs.makeDir(v)
-            printError(4,v.." doesn't exist. dir made.")
+            printError(v.." doesn't exist. dir made.")
         else
-            print(1,v.." exists")
+            print(v.." exists")
         end
         sleep(0.01)
     end
@@ -84,14 +84,14 @@ else --logging and such
             printError(4,v.." doesn't exist. download.")
             shell.run("wget","https://raw.githubusercontent.com/XDuskAshes/dawn/idev/"..v,v)
         else
-            print(1,v.." exists")
+            print(v.." exists")
         end
         sleep(0.01)
     end
 
     if fs.exists("/tmp/ccpcBug") then
         fs.delete("/tmp/ccpcBug")
-        k.scrMSG(3,"dbios can be entered as a username")
+        print("dbios can be entered as a username")
     end
     shell.run("/bin/login.lua")
 end
