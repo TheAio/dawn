@@ -1,10 +1,6 @@
 --dawn installer
 local handle
 
-if fs.exists("/etc/logs/") then
-    handle = fs.open("/etc/logs/install","w")
-end
-
 local rfs = {}
 local files = {}
 
@@ -14,7 +10,6 @@ repeat
     table.insert(rfs,a)
 until a == nil
 fshandle.close()
-handle.writeLine("Got: https://raw.githubusercontent.com/XDuskAshes/dawn/idev/install/fs and put in table 'rfs'")
 
 local fihandle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/install/files"))
 repeat
@@ -22,7 +17,6 @@ repeat
     table.insert(files,a)
 until a == nil
 fihandle.close()
-handle.writeLine("Got: https://raw.githubusercontent.com/XDuskAshes/dawn/idev/install/files and put in table 'files'")
 
 local function e(s)
     return s == nil or s == ""
@@ -45,8 +39,6 @@ elseif e(user) then
     user = "piggle"
 end
 
-handle.writeLine("Username: "..user)
-
 print("Password:")
 write("> ")
 local password = read("#")
@@ -60,13 +52,10 @@ write("> ")
 local home = read()
 if home == "y" then
     home = true
-    handle.writeLine("A home will be made for "..user)
 elseif home == "n" then
     home = false
-    handle.writeLine("A home will not be made for "..user)
 else
     home = true
-    handle.writeLine("A home will be made for "..user)
 end
 
 print("Should user be sudo? (y/n (y is default)):")
@@ -74,13 +63,10 @@ write("> ")
 local sudo = read()
 if sudo == "y" then
     sudo = true
-    handle.writeLine(user.." will be sudo.")
 elseif sudo == "n" then
     sudo = false
-    handle.writeLine(user.." will not be sudo.")
 else
     sudo = true
-    handle.writeLine(user.." will be sudo.")
 end
 
 term.clear()
@@ -107,10 +93,8 @@ for k,v in pairs(files) do
                 handle.writeLine(v)
             end
             handle.close()
-    handle.writeLine("Got: https://raw.githubusercontent.com/XDuskAshes/dawn/idev/"..v" as "..v)
     sleep(0.01)
 end
-handle.writeLine("User data will now be written.")
 handle.close()
 print("done")
 print("Writing user data of "..user.." to /etc/passwd")
@@ -132,8 +116,6 @@ if sudo == true then
     handle.close()
 end
 
-handle = fs.open("/etc/logs/install","a")
-handle.writeLine("Performing final parts: ls, cd, and edit from /rom/ to /bin/")
 print("Performing final parts: ls, cd, and edit from /rom/ to /bin/")
 
 fs.copy("/rom/programs/cd.lua","/bin/cd.lua")
@@ -143,9 +125,6 @@ print("ls done")
 fs.copy("/rom/programs/edit.lua","/bin/edit.lua")
 print("edit done")
 print("Restarting in 3 seconds.")
-
-handle.writeLine("Install done.")
-handle.close()
 
 sleep(3)
 os.reboot()
