@@ -4,7 +4,7 @@ local args = {...}
 local k = require "/kernel"
 
 if fs.exists("/bin/"..args[1]..".lua") ~= true then
-    error(args[1].." don't exist my duuuude",0)
+    error(args[1].." don't exist",0)
 end
 
 if k.empty(args[1]) then
