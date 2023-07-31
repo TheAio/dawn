@@ -6,7 +6,7 @@ local new = {}
 local remove = {}
 local update = {}
 
-local handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/update/new"))
+local handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/update/new"))
 local x,y = term.getCursorPos()
 repeat
     local a = handle.readLine()
@@ -22,7 +22,7 @@ until a == nil
 
 handle.close()
 
-local handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/update/remove"))
+local handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/update/remove"))
 local x,y = term.getCursorPos()
 repeat
     local a = handle.readLine()
@@ -38,7 +38,7 @@ until a == nil
 
 handle.close()
 
-local handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/update/update"))
+local handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/update/update"))
 local x,y = term.getCursorPos()
 repeat
     local a = handle.readLine()
