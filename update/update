@@ -1,1 +1,2 @@
-nil
+/sbin/throw.lua
+/bin/update.lua

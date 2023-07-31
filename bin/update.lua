@@ -77,7 +77,7 @@ else
                     handle.writeLine(v)
                     term.setCursorPos(x,y)
                     stage = (stage % 4) + 1
-                    write("adding files... ("..file..")" .. spinner[stage].." ")
+                    write("adding files... ("..file..") " .. spinner[stage].." ")
                     sleep(0.01)
                 end
             handle.close()
@@ -96,7 +96,7 @@ else
         term.setCursorPos(x,y)
         fs.delete(v)
         stage = (stage % 4) + 1
-        write("deleting files... ("..v..")".. spinner[stage].." ")
+        write("deleting files... ("..v..") ".. spinner[stage].." ")
         sleep(0.01)
     end
 end
@@ -124,7 +124,7 @@ else
                     handle.writeLine(v)
                     term.setCursorPos(x,y)
                     stage = (stage % 4) + 1
-                    write("updating files... ("..file..")" .. spinner[stage].." ")
+                    write("updating files... ("..file..") " .. spinner[stage].." ")
                     sleep(0.01)
                 end
             handle.close()
