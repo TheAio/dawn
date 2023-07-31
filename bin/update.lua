@@ -108,8 +108,8 @@ else
     write("\n")
     for k,v in pairs(new) do
         if fs.exists(v) then
-            print("File",v,"exists")
-        else
+            fs.delete(v)
+        end
             local file = v
             local toWrite = {}
             local handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev"..v))
@@ -131,5 +131,4 @@ else
             write("done. \n")
         end
     end
-end
 
