@@ -58,34 +58,78 @@ local x,y = term.getCursorPos()
 if #new < 1 then
     print("There is nothing new.")
 else
+    write("\n")
     for k,v in pairs(new) do
-        local toWrite = {}
-        local handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/"..v))
-        repeat
-            local a = handle.readLine()
-            table.insert(toWrite,a)
-        until a == nil
-        handle.close()
-        local handle = fs.open(v,"w")
-        local x,y = term.getCursorPos()
-        for k,v in pairs(toWrite) do
-            handle.writeLine(v)
-            term.setCursorPos(x,y)
-            stage = (stage % 4) + 1
-            write("add new file: "..v.." " .. spinner[stage].." ")
+        if fs.exists(v) then
+            print("File",v,"exists")
+        else
+            local file = v
+            local toWrite = {}
+            local handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev"..v))
+                repeat
+                    local a = handle.readLine()
+                    table.insert(toWrite,a)
+                until a == nil
+            handle.close()
+            local handle = fs.open(v,"w")
+            local x,y = term.getCursorPos()
+                for k,v in pairs(toWrite) do
+                    handle.writeLine(v)
+                    term.setCursorPos(x,y)
+                    stage = (stage % 4) + 1
+                    write("adding files... ("..file..")" .. spinner[stage].." ")
+                    sleep(0.01)
+                end
+            handle.close()
+            write("done. \n")
         end
-        handle.close()
-        write("done. \n")
     end
 end
 
 local x,y = term.getCursorPos()
 if #remove < 1 then
     print("Nothing to remove.")
+else
+    write("\n")
+    local x,y = term.getCursorPos()
+    for k,v in pairs(remove) do
+        term.setCursorPos(x,y)
+        fs.delete(v)
+        stage = (stage % 4) + 1
+        write("deleting files... ("..v..")".. spinner[stage].." ")
+        sleep(0.01)
+    end
 end
 
 local x,y = term.getCursorPos()
 if #update < 1 then
-    print("Nothing to remove.")
+    print("Nothing to update.")
+else
+    write("\n")
+    for k,v in pairs(new) do
+        if fs.exists(v) then
+            print("File",v,"exists")
+        else
+            local file = v
+            local toWrite = {}
+            local handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev"..v))
+                repeat
+                    local a = handle.readLine()
+                    table.insert(toWrite,a)
+                until a == nil
+            handle.close()
+            local handle = fs.open(v,"w")
+            local x,y = term.getCursorPos()
+                for k,v in pairs(toWrite) do
+                    handle.writeLine(v)
+                    term.setCursorPos(x,y)
+                    stage = (stage % 4) + 1
+                    write("updating files... ("..file..")" .. spinner[stage].." ")
+                    sleep(0.01)
+                end
+            handle.close()
+            write("done. \n")
+        end
+    end
 end
 
