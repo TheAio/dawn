@@ -103,7 +103,7 @@ for k,v in pairs(files) do
             handle.close()
             term.setCursorPos(1,4)
 stage = (stage % 4) + 1
-write("get core... " .. spinner[stage].." ")
+write("get core... ("..v..")" .. spinner[stage].." ")
 end
 print("done")
 write("write user data of "..user.." to /etc/passwd...")
