@@ -82,7 +82,7 @@ for k,v in pairs(rfs) do
     fs.makeDir(v)
     term.setCursorPos(1,3)
     stage = (stage % 4) + 1
-    write("make basefs " .. spinner[stage].." ")
+    write("make basefs... ("..v..") " .. spinner[stage].." ")
     sleep(0.01)
 end
 stage = 0
