@@ -103,6 +103,7 @@ for k,v in pairs(files) do
             handle.close()
             term.setCursorPos(1,4)
 stage = (stage % 4) + 1
+term.clearLine(term.getCursorPos())
 write("get core... ("..v..")" .. spinner[stage].." ")
 end
 print("done")
