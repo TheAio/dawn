@@ -72,6 +72,12 @@ repeat
     local sh = defaultsh.readLine()
     defaultsh.close()
 
+    if fs.exists(home) then
+        shell.run("cd "..home)
+    else
+        shell.run("cd /bin/")
+    end
+
     if fs.exists(cshell) then
         shell.run(cshell)
     else

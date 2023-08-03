@@ -1,7 +1,7 @@
 --[[
-    Dawn Kernel
+    Dawn A-IDEV Kernel
     By Dusk
-    1.0.0-idev1
+    A-1.0.0-idev
 ]]
 
 local handle
