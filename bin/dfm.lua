@@ -1,5 +1,9 @@
 --Dusk File Manager
 
+local function e(s)
+    return s == nil or s == ""
+end
+
 while true do
     term.clear()
     term.setCursorPos(1,1)
@@ -27,6 +31,9 @@ while true do
             include_hidden = false,
         })
     end)
+    if e(a) then
+        sleep(0.3)
+    end
     if fs.exists(dir..a) then
         if fs.isDir(dir..a) then
             shell.run("cd",a)

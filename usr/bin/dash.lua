@@ -1,6 +1,6 @@
 --[[
     DASH Terminal
-    Custom for dawn kernel
+    Custom for dawn os
     By Dusk
 ]]
 
