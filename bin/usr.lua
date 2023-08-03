@@ -90,6 +90,11 @@ if args[1] == "-a" then
         handle2.writeLine(tWrite)
         handle2.close()
         fs.makeDir("/home/"..uName.."/")
+        local homeDir = "/home/"..uName
+        fs.makeDir(homeDir.."/.config")
+        fs.makeDir(homeDir.."/.local")
+        fs.makeDir(homeDir.."/.local/share")
+        fs.makeDir(homeDir.."/.local/dump")
     end
 
     if sudo == true then
