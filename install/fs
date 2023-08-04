@@ -12,6 +12,10 @@
 /home/
 /lib/
 /mnt/
+/root/
+/root/.config/
+/root/.local/
+/root/.local/share/
 /sbin/
 /stat/
 /stat/pkg/
