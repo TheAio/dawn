@@ -83,7 +83,7 @@ for k,v in pairs(rfs) do
     term.setCursorPos(1,3)
     stage = (stage % 4) + 1
     term.clearLine(term.getCursorPos())
-    write(spinner[stage].. " make basefs... ("..v..") ")
+    write(" make basefs... "..spinner[stage])
     term.setCursorPos(1,19)
     term.clearLine(term.getCursorPos())
     write(v)
@@ -108,7 +108,7 @@ for k,v in pairs(files) do
             term.setCursorPos(1,4)
 stage = (stage % 4) + 1
 term.clearLine(term.getCursorPos())
-write(spinner[stage].." get core... ")
+write("get core... "..spinner[stage])
 term.setCursorPos(1,19)
 term.clearLine(term.getCursorPos())
 write(v)
