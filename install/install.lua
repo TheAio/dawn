@@ -89,7 +89,12 @@ for k,v in pairs(rfs) do
     write(v)
     sleep(0.01)
 end
-stage = 0
+term.setCursorPos(1,19)
+term.clearLine(term.getCursorPos())
+term.setCursorPos(1,3)
+    stage = (stage % 4) + 1
+    term.clearLine(term.getCursorPos())
+    write(" make basefs... "..spinner[stage])
 print("done")
 write("get core...")
 for k,v in pairs(files) do
@@ -113,6 +118,10 @@ term.setCursorPos(1,19)
 term.clearLine(term.getCursorPos())
 write(v)
 end
+term.setCursorPos(1,4)
+stage = (stage % 4) + 1
+term.clearLine(term.getCursorPos())
+write("get core... "..spinner[stage])
 print("done")
 write("write user data of "..user.." to /etc/passwd...")
 handle = fs.open("/etc/passwd","a")
