@@ -70,7 +70,7 @@ for k,v in pairs(bfs) do
         fs.makeDir(v)
         term.setCursorPos(x,y)
         stage = (stage % 4) + 1
-        write("running basefs check... ".. spinner[stage].." (had to make: "..v..") ")
+        write("running basefs check... ".. spinner[stage].." ")
     end
     sleep(0.01)
 end
@@ -98,8 +98,7 @@ for k,v in pairs(bfiles) do
             handle.close()
         term.setCursorPos(x,y)
         stage = (stage % 4) + 1
-        term.clearLine(term.getCursorPos())
-        write("running basefiles check... ".. spinner[stage].." (had to make: "..v..") ")
+        write("running basefiles check... ".. spinner[stage].." ")
     end
     sleep(0.01)
 end
