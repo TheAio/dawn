@@ -47,11 +47,12 @@ if fs.exists("/etc/usr/.login") then
     write("Password: ")
     local input = read("#")
     if input == pass then
-        table.remove(args,0)
         local toRun = args[1]
         table.remove(args,1)
-        for _,v in pairs(args) do
-            toRun = toRun.." "..v
+        local arg = 1
+        for i,v in pairs(args) do
+            toRun = toRun.." "..args[arg]
+            arg = arg + 1
         end
         fs.copy("/etc/file","/tmp/sudo")
         shell.run("/bin/"..toRun)

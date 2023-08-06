@@ -2,6 +2,11 @@
 --must always be run with sudo no matter what, obvs
 --stuff like system configs etc will be moved to here
 
+local function e(s)
+    return s == nil or s == ""
+end
+
+local lio = require "/lib/libio"
 local args = {...}
 
 if args[1] == "-h" then
@@ -24,15 +29,15 @@ if fs.exists("/tmp/sudo") then
         handle.write(args[2])
         handle.close()
     elseif args[1] == "--clear-config" then
-        printError("WARNING! THIS WILL CLEAR /ETC/CONFIG/")
-        write("proceed? [y/n]:")
-        local yn = read()
-        if yn == "y" then
+        term.setTextColor(colors.red)
+        write("WARNING: Clears /etc/config. Continue? ")
+        sleep(1)
+        term.setTextColor(colors.white)
+        local a = lio.ynae.npref()
+        if a == true then
             shell.run("rm /etc/config/*")
-        elseif yn == "n" then
-            error("Cancelling.",0)
-        else
-            error("Invalid input.",0)
+        elseif a == false then
+            error("Bailing!",0)
         end
     end
 else
