@@ -1,7 +1,7 @@
 --[[
-    Dawn A-IDEV Kernel
+    Dawn-B Kernel
     By Dusk
-    A-1.0.0-idev
+    B-1.1.0
 ]]
 
 local handle
@@ -132,5 +132,15 @@ end
 function k.isSide(a)
     return a == "bottom" or a == "top" or a == "left" or a == "right" or a == "back" or a == "front"
 end
+
+--peripheral drivers
+
+k.periph = {} --peripheral drivers
+
+function k.periph.scan(t) --Scan peripherals and return a table. "t" is required, and defines whether to give it to a table (0), or print to standard output (1).
+    
+end
+
+k.periph.drive = {} --peripheral driver for disk drives
 
 return k

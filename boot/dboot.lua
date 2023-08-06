@@ -46,11 +46,13 @@ while true do
         if k == keys.enter then
           term.clear()
           term.setCursorPos(1,1)
+          sleep(0.9)
           shell.run("/bin/login.lua")
           break
         elseif k == keys.z then
             term.clear()
             term.setCursorPos(1,1)
+            sleep(0.9)
             shell.run("/boot/dbios/init.lua")
             break
         end
