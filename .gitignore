@@ -25,3 +25,7 @@ bin/edit.lua
 
 # .settings
 .settings
+
+# /sys/
+sys/bfs
+sys/reg/

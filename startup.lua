@@ -74,7 +74,7 @@ for k,v in pairs(bfs) do
     end
     sleep(0.01)
 end
-
+stage = 0
 print("done")
 
 x,y = term.getCursorPos()
@@ -115,7 +115,26 @@ else
     print("CCPC")
     handle.writeLine("env is CCPC")
 end
+stage = 0
+handle.writeLine("performing bfs write")
+handle.close()
+if fs.exists("/sys/bfs") then
+    fs.delete("/sys/bfs")
+end
+handle = fs.open("/sys/bfs","w")
+x,y = term.getCursorPos()
+for k,v in pairs(bfs) do
+    handle.writeLine(v)
+    term.setCursorPos(x,y)
+    stage = (stage % 4) + 1
+    write("performing bfs write... ".. spinner[stage].." ")
+    sleep(0.01)
+end
 
+print("done")
+
+handle.close()
+local handle = fs.open("/etc/logs/startup","a")
 handle.writeLine("launching boot program")
 handle.close()
 sleep(1)

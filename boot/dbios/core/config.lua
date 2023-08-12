@@ -10,7 +10,6 @@ local function e(a)
 end
 
 local configs = {
-    "simpleboot",
     "colorterm",
     "add-debug"
 }

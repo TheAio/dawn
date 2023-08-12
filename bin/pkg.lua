@@ -86,7 +86,7 @@ if args[1] == "-i" then
         end
     end
 elseif args[1] == "-r" then
-    local handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/pkgs/pkg-ignore"))
+    local handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn-pkg/main/ignore"))
     local ingnore = textutils.unserialize(handle.readAll())
     handle.close()
 
@@ -146,7 +146,7 @@ elseif args[1] == "-add-src" then
 elseif args[1] == "-rm-src" then
     if kern.empty(args[2]) then
         error("pkg -rm-src <src> (empty <src> arg)",0)
-    elseif args[2] == "https://raw.githubusercontent.com/XDuskAshes/dawn/pkgs/pkg-list" then
+    elseif args[2] == "https://raw.githubusercontent.com/XDuskAshes/dawn-pkg/main/pkg-list" then
         kern.scrMSG(5,"cannot -rm-src ("..args[2].."): main pkg repo")
     else
         local srcls = {}

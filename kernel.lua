@@ -12,29 +12,6 @@ local function isempty(s) --i robbed this from https://stackoverflow.com/questio
     return s == nil or s == ''
 end
 
-local function PANIC(desc,code)
-    local pCode = tonumber(code)
-    local c = os.clock()
-    if pCode then
-        print("")
-        print("!!! DAWN - KERNEL PANIC !!!")
-        print("Runtime until call:",c.."s")
-        print("Provided reason:",desc)
-        print("System will restart in 10 seconds to attempt to fix the issue.")
-        print("Error code:",code)
-        sleep(10)
-        os.reboot()
-    else
-        print("")
-        print("!!! DAWN - KERNEL PANIC !!!")
-        print("Runtime until call:",c.."s")
-        print("Provided reason:",desc)
-        print("System will restart in 10 seconds to attempt to fix the issue.")
-        sleep(10)
-        os.reboot()
-    end
-end
-
 local k = {}
 
 function k.empty(s) --see line 11
@@ -137,10 +114,48 @@ end
 
 k.periph = {} --peripheral drivers
 
-function k.periph.scan(t) --Scan peripherals and return a table. "t" is required, and defines whether to give it to a table (0), or print to standard output (1).
-    
+function k.periph.scan(t)  --Scan peripherals. "t" is required, and defines whether to give it to a table (0), or print to standard output (1).
+    local name = fs.getName(shell.getRunningProgram())
+    if tonumber(t) then --tonumber() checks if param "t" is a number
+        local tnt = tonumber(t) --if yeah then make the variable tnt "tonumber(t)"
+        if tnt == 0 then --if 0
+            local toReturn = {} --make it a table
+            local per = peripheral.getNames()
+                for b,v in pairs(per) do
+                    local perName = peripheral.getType(v)
+                    local writeThis = perName.." on "..v
+                    table.insert(toReturn,writeThis)
+                end
+            return toReturn --give table
+        elseif tnt == 1 then --if 1
+            local per = peripheral.getNames()
+            for b,v in pairs(per) do --print to stdout (standard output)
+                local perName = peripheral.getType(v)
+                local writeThis = perName.." on "..v --looks like "drive on left"
+                print(writeThis)
+            end
+        else
+            error("Driver Error (k.periph): t must be 0 or 1 (k.periph.scan(t))["..name.."]",0) --if t is not 1 or 0
+        end
+    else
+        error("Driver Error (k.periph): t must be a number (k.periph.scan(t))["..name.."]",0) --if t is not a number
+    end
 end
 
 k.periph.drive = {} --peripheral driver for disk drives
+
+function k.periph.drive.fetch() --fetch all drives and return as a table
+    local name = fs.getName(shell.getRunningProgram())
+    local toReturn = {}
+        local per = peripheral.getNames() --get names of peripherals attached, lets say a monitor on left, drive on right and bottom, and top modem
+        for b,v in pairs(per) do --loop over
+            local perName = peripheral.getType(v) --get the type
+            if perName == "drive" then --filter for drives
+                local writeThis = perName.." on "..v --then add to table as smn like "drive on right"
+                table.insert(toReturn,writeThis)
+            end
+        end
+    return toReturn --return the table
+end
 
 return k

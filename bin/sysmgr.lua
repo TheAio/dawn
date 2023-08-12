@@ -39,6 +39,22 @@ if fs.exists("/tmp/sudo") then
         elseif a == false then
             error("Bailing!",0)
         end
+    elseif args[1] == "--regadd" then
+        if fs.exists("/sys/reg/"..args[2]) then
+            error("Registry value already exists: "..args[2],0)
+        else
+            local handle = fs.open("/sys/reg/"..args[2],"w")
+            handle.write("")
+            handle.close()
+            print("Registry value added: "..args[2])
+        end
+    elseif args[1] == "--regrem" then
+        if fs.exists("/sys/reg/"..args[2]) ~= true then
+            error("Registry value does not exist: "..args[2],0)
+        else
+            fs.delete("/sys/reg/"..args[2])
+            print("Removed registry value: "..args[2])
+        end
     end
 else
     error("Must be run with sudo.",0)

@@ -28,15 +28,28 @@ for k,v in pairs(fromROM) do
     end
 end
 
+local tSizex, tSizey = term.getSize()
 sleep(1)
 term.clear()
-term.setCursorPos(22,6)
-local image = paintutils.loadImage("/etc/dawn/logo.nfp")
-paintutils.drawImage(image, term.getCursorPos())
-term.setCursorPos(18,13)
-print("Dawn OS "..v)
-term.setCursorPos(5,18)
-print("ENTER to boot to login, Z to boot to dbios.")
+if tSizex == 26 and tSizey == 20 then
+    term.setCursorPos(11,6)
+    local image = paintutils.loadImage("/etc/dawn/logo.nfp")
+    paintutils.drawImage(image, term.getCursorPos())
+    term.setCursorPos(7,13)
+    print("Dawn OS "..v)
+    term.setCursorPos(3,18)
+    print("ENTER to boot to login,")
+    term.setCursorPos(4,19)
+    write(" Z to boot to dbios.")
+else
+    term.setCursorPos(22,6)
+    local image = paintutils.loadImage("/etc/dawn/logo.nfp")
+    paintutils.drawImage(image, term.getCursorPos())
+    term.setCursorPos(18,13)
+    print("Dawn OS "..v)
+    term.setCursorPos(5,18)
+    print("ENTER to boot to login, Z to boot to dbios.")
+end
 while true do
     local event = {os.pullEvent()}
     local eventD = event[1]
