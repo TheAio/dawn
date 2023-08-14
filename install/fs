@@ -17,6 +17,7 @@
 /root/.local/
 /root/.local/share/
 /sbin/
+/sbin/regapp/
 /stat/
 /stat/pkg/
 /sys/

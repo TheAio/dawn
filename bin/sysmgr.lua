@@ -14,6 +14,8 @@ if args[1] == "-h" then
     print("sysmgr --cleanup | cleanup all temp/dump files")
     print("sysmgr --default-sh | set the default shell")
     print("sysmgr --clear-config | clear /etc/config/")
+    print("sysmgr --regadd <value> | add an entry to the registry")
+    print("sysmgr --regrem <value> | remove an entry from the registry")
 end
 
 if fs.exists("/tmp/sudo") then

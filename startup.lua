@@ -18,6 +18,10 @@ else
     ComLab = label
 end
 
+local function e(s)
+    return s == nil or s == ""
+end
+
 term.clear()
 term.setCursorPos(1,1)
 print("DAWN CP-BSL (Computer Post-Boot State Log)") --Computer Post-Boot State Log
@@ -132,6 +136,26 @@ for k,v in pairs(bfs) do
 end
 
 print("done")
+
+write("Reading registry... ")
+
+local reg = fs.list("/sys/reg/")
+if e(reg[1]) then
+    print("registry empty.")
+else
+    print("registry entries found.")
+    x,y = term.getCursorPos()
+    for k,v in pairs(reg) do
+        if fs.exists("/sbin/regapp/"..v..".lua") then
+            shell.run("/sbin/regapp/"..v..".lua")
+            term.setCursorPos(x,y)
+        stage = (stage % 4) + 1
+        write("running regapps... ".. spinner[stage].." ")
+        sleep(0.01)
+        end
+    end
+    print("done")
+end
 
 handle.close()
 local handle = fs.open("/etc/logs/startup","a")

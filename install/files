@@ -34,6 +34,7 @@
 /lib/libconfig.lua
 /lib/liberr.lua
 /sbin/r.lua
+/sbin/regapp/tempclearonstart.lua
 /stat/.dawninf
 /stat/.osinf
 /stat/pkg/.inf
