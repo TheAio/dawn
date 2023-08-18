@@ -33,6 +33,7 @@
 /etc/commlist
 /lib/libconfig.lua
 /lib/liberr.lua
+/lib/libio.lua
 /sbin/r.lua
 /sbin/regapp/tempclearonstart.lua
 /stat/.dawninf
