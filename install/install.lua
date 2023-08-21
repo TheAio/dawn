@@ -28,7 +28,7 @@ end
 
 term.clear()
 term.setCursorPos(1,1)
-print("This installer will install the DAWN kernel on your system.")
+print("This installer will install the DAWN operating system on your system.")
 print("")
 print("The following is some quick setup for the main user account.")
 
