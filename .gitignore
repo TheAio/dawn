@@ -18,8 +18,6 @@ var/dump/*
 bin/ink.lua
 bin/ldisk.lua
 bin/fetch.lua
-bin/per.lua
-bin/cd.lua
 bin/ls.lua
 bin/edit.lua
 
@@ -29,3 +27,4 @@ bin/edit.lua
 # /sys/
 sys/bfs
 sys/reg/
+sys/cfg/

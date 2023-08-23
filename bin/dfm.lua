@@ -1,28 +1,30 @@
 --Dusk File Manager
 
+local args = {...}
+local dir
 local function e(s)
     return s == nil or s == ""
+end
+
+if e(args[1]) ~= true then
+    if fs.isDir(args[1]) then
+        shell.run("/bin/cd",args[1])
+    end
 end
 
 while true do
     term.clear()
     term.setCursorPos(1,1)
-    local dir
         if shell.dir() == "" then
             dir = "/"
         else
             dir = "/"..shell.dir().."/"
         end
-    print("+ ["..dir.."]")
-    local content = fs.list(dir)
-    for k,v in pairs(content) do
-        if fs.isDir(dir..v) then
-            textutils.pagedPrint("| "..v.."/")
-        else
-            textutils.pagedPrint("| "..v)
-        end
-    end
-    print("+ ["..dir.."]")
+    print("["..dir.."]")
+    shell.run("/bin/ls",dir)
+    print("")
+    term.setTextColor(colors.white)
+    print("':exit' to exit")
     write("Go to/open: ")
     local a = read(nil, nil, function(str)
         return fs.complete(str, dir, {
@@ -33,12 +35,16 @@ while true do
     end)
     if e(a) then
         sleep(0.3)
+    elseif a == ":exit" then
+        term.clear()
+        term.setCursorPos(1,1)
+        error()
     end
     if fs.exists(dir..a) then
         if fs.isDir(dir..a) then
-            shell.run("cd",a)
+            shell.run("/bin/cd",a)
         else
-            shell.run("edit",a)
+            shell.run("/bin/edit",a)
         end
     end
 end

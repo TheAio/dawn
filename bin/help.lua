@@ -8,21 +8,17 @@ local kernel = require "/kernel"
 
 local args = {...}
 if #args < 1 then
-    local t = {}
-    local handle = fs.open("/etc/commlist","r")
-    repeat
-        local a = handle.readLine()
-        table.insert(t,a)
-    until a == nil
-    for i,v in ipairs(t) do
-        textutils.pagedPrint(v)
-    end
-    error()
-end
+    shell.run("ls /bin/")
+elseif args[1] == "-h" then
+print([[
+Help utility
 
-if args[1] == "-l" then
-    local i = fs.list("/bin/")
-        for k,v in pairs(i) do
-            print(v)
-        end
+help | lists /bin/
+help <program> | runs /bin/<program> -h]])
+else
+    if fs.exists("/bin/"..args[1]..".lua") then
+        shell.run("/bin/"..args[1].." -h")
+    else
+        error("Program "..args[1].." does not exist.",0)
+    end
 end

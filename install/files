@@ -4,6 +4,7 @@
 /README.txt
 /thanks.txt
 /bin/cat.lua
+/bin/cd.lua
 /bin/cls.lua
 /bin/help.lua
 /bin/label.lua
