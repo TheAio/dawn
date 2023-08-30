@@ -2,11 +2,17 @@
 
 local spinner = {"|","/","-","\\"}
 local stage = 0
-
-local handle
-
 local rfs = {}
 local files = {}
+local user
+local pass
+local rpass
+
+--[[
+    stage = (stage % 4) + 1
+    term.clearLine(term.getCursorPos())
+    write(" make basefs... "..spinner[stage])
+]]
 
 local fshandle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/install/fs"))
 repeat
@@ -28,128 +34,193 @@ end
 
 term.clear()
 term.setCursorPos(1,1)
-print("This installer will install the DAWN operating system on your system.")
+print("Welcome to Dawn OS, a simple, *NIX-Like operating system for YOUR ComputerCraft:Tweaked system!")
 print("")
-print("The following is some quick setup for the main user account.")
-
-print("Username:")
-write("> ")
-local user = read()
-if user == "root" then
-    printError("Username cannot be 'root'. Defaulting to piggle")
-    user = "piggle"
-elseif e(user) then
-    printError("Username cannot be nil or ''. Defaulting to piggle")
-    user = "piggle"
+print("For now, the installer will only install from the 'idev' branch of Dawn, however in the future you will be able to download a stable release version of Dawn!")
+print("")
+print("Press any key to continue...")
+        while true do
+            local event = {os.pullEvent()}
+            local eventD = event[1]
+        
+            if eventD == "key" then
+                break
+            end
+        end
+term.clear()
+term.setCursorPos(1,1)
+print("First, we'll need to setup a user account.")
+print("Enter a username and password as prompted:")
+while true do
+    write("Username: ")
+    user = read()
+    if e(user) then
+        print("Username can't be blank.")
+    else
+        break
+    end
 end
 
-print("Password:")
-write("> ")
-local password = read("#")
-if e(password) then
-    password = "1234"
-    printError("Password cannot be empty. (DEFAULT: 1234)")
+while true do
+    write("Password: ")
+    pass = read("*")
+    if e(pass) then
+        print("Password cannot be blank.")
+    elseif string.len(pass) < 8 then
+        print("Password length cannot be less than 8 characters.")
+    else
+        break
+    end
 end
 
-print("Add a home folder? (y/n (y is default)):")
-write("> ")
-local home = read()
-if home == "y" then
-    home = true
-elseif home == "n" then
-    home = false
-else
-    home = true
-end
-
-print("Should user be sudo? (y/n (y is default)):")
-write("> ")
-local sudo = read()
-if sudo == "y" then
-    sudo = true
-elseif sudo == "n" then
-    sudo = false
-else
-    sudo = true
-end
+print("Press any key to continue...")
+        while true do
+            local event = {os.pullEvent()}
+            local eventD = event[1]
+        
+            if eventD == "key" then
+                break
+            end
+        end
 
 term.clear()
 term.setCursorPos(1,1)
-print("Please note that as of now, this installer works with 'idev' branch only.")
-sleep(1)
-write("make basefs...")
+print("Now set a password for the root account.")
+while true do
+    write("Root password: ")
+    rpass = read("*")
+    if e(rpass) then
+        print("Root password cannot be blank.")
+    elseif string.len(rpass) < 8 then
+        print("Root password length cannot be less than 8 characters.")
+    else
+        break
+    end
+end
+
+print("Press any key to continue...")
+        while true do
+            local event = {os.pullEvent()}
+            local eventD = event[1]
+        
+            if eventD == "key" then
+                break
+            end
+        end
+
+term.clear()
+term.setCursorPos(1,1)
+print("Now just a few quick questions.")
+print("Would you like a home directory? (/home/"..user..")")
+print("[Y/n]")
+local home
+    while true do
+        local event = {os.pullEvent()}
+        local eventD = event[1]
+    
+        if eventD == "key" then
+            local k = event[2]
+            if k == keys.y then
+              home = "/home/"..user
+              print("A home dir will be made.")
+              break
+            elseif k == keys.n then
+                home = "nil"
+                print("A home dir will not be made.")
+                break
+            end
+        end
+    end
+print("Which shell would you like to use?")
+print("(1) - dash")
+print("(2) - minterm")
+local sh
+    while true do
+        local event = {os.pullEvent()}
+        local eventD = event[1]
+    
+        if eventD == "key" then
+            local k = event[2]
+            if k == keys.one then
+              sh = "/usr/bin/dash.lua"
+              print("dash selected")
+              break
+            elseif k == keys.two then
+                sh = "/usr/bin/minterm.lua"
+                print("minterm selected")
+                break
+            end
+        end
+    end
+
+
+print("Press any key to continue...")
+        while true do
+            local event = {os.pullEvent()}
+            local eventD = event[1]
+        
+            if eventD == "key" then
+                break
+            end
+        end
+
+term.clear()
+term.setCursorPos(1,1)
+print("Dawn OS will now be installed.")
+local x,y = term.getCursorPos()
 for k,v in pairs(rfs) do
     fs.makeDir(v)
-    term.setCursorPos(1,3)
-    stage = (stage % 4) + 1
+    term.setCursorPos(1,2)
     term.clearLine(term.getCursorPos())
-    write(" make basefs... "..spinner[stage])
-    term.setCursorPos(1,19)
-    term.clearLine(term.getCursorPos())
-    write(v)
+    write("Make basefs... ("..v..")")
     sleep(0.01)
 end
-term.setCursorPos(1,19)
-term.clearLine(term.getCursorPos())
-term.setCursorPos(1,3)
-    stage = (stage % 4) + 1
-    term.clearLine(term.getCursorPos())
-    write(" make basefs... "..spinner[stage])
-print("done")
-write("get core...")
+print(" | Done!")
+
 for k,v in pairs(files) do
-    handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev/"..v))
-            local toWrite = {}
-            repeat
-                local a = handle.readLine()
-                table.insert(toWrite,a)
-            until a == nil
-            handle.close()
-            handle = fs.open(v,"w")
-            for _,v in pairs(toWrite) do
-                handle.writeLine(v)
-            end
-            handle.close()
-            term.setCursorPos(1,4)
-stage = (stage % 4) + 1
-term.clearLine(term.getCursorPos())
-write("get core... "..spinner[stage])
-term.setCursorPos(1,19)
-term.clearLine(term.getCursorPos())
-write(v)
-end
-term.setCursorPos(1,4)
-stage = (stage % 4) + 1
-term.clearLine(term.getCursorPos())
-write("get core... "..spinner[stage])
-print("done")
-write("write user data of "..user.." to /etc/passwd...")
-handle = fs.open("/etc/passwd","a")
-handle.write(user..":"..password..":1:")
-if home == true then
-    fs.makeDir("/home/"..user)
-    handle.write("/home/"..user..":")
-else
-    handle.write("nil:")
-end
-handle.write("/usr/bin/dash.lua\n")
-handle.close()
-print("done")
-if sudo == true then
-    write("write "..user.." to /etc/sudoers...")
-    local handle = fs.open("/etc/sudoers","a")
-    handle.writeLine(user)
+    local handle = assert(http.get("https://raw.githubusercontent.com/XDuskAshes/dawn/idev"..v))
+        local toWrite = {}
+        repeat
+            local a = handle.readLine()
+            table.insert(toWrite,a)
+        until a == nil
     handle.close()
+
+    handle = fs.open(v,"w")
+    for _,v in pairs(toWrite) do
+        handle.writeLine(v)
+    end
+    handle.close()
+
+    term.setCursorPos(1,3)
+    term.clearLine(term.getCursorPos())
+    write("Make core... ("..v..")")
+    sleep(0.01)
 end
-print("done")
+print(" | Done!")
+print("Dawn OS files are installed.")
 
-write("copy ls, cd, and edit from '/rom/' to '/bin/'...")
+print("Press any key to finish installation...")
+        while true do
+            local event = {os.pullEvent()}
+            local eventD = event[1]
+        
+            if eventD == "key" then
+                break
+            end
+        end
 
-fs.copy("/rom/programs/cd.lua","/bin/cd.lua")
+term.clear()
+term.setCursorPos(1,1)
 fs.copy("/rom/programs/list.lua","/bin/ls.lua")
 fs.copy("/rom/programs/edit.lua","/bin/edit.lua")
-print("done")
+print("Copied ls and edit from rom.")
 
-print("Restarting in 3 seconds.")
+local handle = fs.open("/etc/passwd","w")
+handle.writeLine("root:"..rpass..":0:nil:/usr/bin/dash.lua")
+handle.writeLine(user..":"..pass..":1:"..home..":"..sh)
+handle.close()
+print("Done writing user!")
+print("You will now be sent into your new Dawn system!")
 sleep(3)
-os.reboot()
+shell.run("/startup.lua")

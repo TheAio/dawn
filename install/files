@@ -27,7 +27,6 @@
 /boot/dbios/core/set.lua
 /etc/file
 /etc/.file
-/etc/passwd
 /etc/sudoers
 /etc/dawn/logo.nfp
 /etc/dawn/sh-default
