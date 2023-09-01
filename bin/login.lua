@@ -5,24 +5,27 @@
 
 local kernel = require "/kernel"
 
-if fs.exists("/tmp/ccpcBug") then
-    kernel.scrMSG(3,"dbios can be launched at user prompt as 'dbios'")
+if fs.exists("/etc/logs/login") then
+    fs.delete("/etc/logs/login")
 end
 
+local log = fs.open("/etc/logs/login","w")
+log.writeLine("== LOGIN PROMPT LOG ==")
+
 kernel.scrMSG(1,"Reached: login")
-fs.delete("/tmp/ccpcBug")
 
 local function isempty(s) --i robbed this from https://stackoverflow.com/questions/19664666/check-if-a-string-isnt-nil-or-empty-in-lua
     return s == nil or s == ''
 end
 
 if fs.exists("/etc/usr/.login") then
+    log.writeLine("Deleted: /etc/usr/.login")
     fs.delete("/etc/usr/.login")
-    fs.copy("/etc/.file","/etc/usr/.login")
-else
-    fs.copy("/etc/.file","/etc/usr/.login")
 end
 
+log.writeLine("Perform login and related auth.")
+
+log.close()
 local handle = fs.open("/etc/passwd","r")
 write("User:")
 local userlog = read()
@@ -65,31 +68,49 @@ repeat
   until
     user == userlog and pass == userpass
     handle.close()
+    local log = fs.open("/etc/logs/login","a")
+    log.writeLine("Authentication complete.")
+    log.close()
     local handle2 = fs.open("/etc/usr/.login","w")
     handle2.writeLine(user)
     handle2.close()
     local defaultsh = fs.open("/etc/dawn/sh-default","r")
     local sh = defaultsh.readLine()
     defaultsh.close()
+    local log = fs.open("/etc/logs/login","a")
 
     if fs.exists(home) then
+        log.writeLine("Home dir for "..user.." exists. ("..home..")")
         shell.run("cd "..home)
     else
+        log.writeLine("Home dir for "..user.." does not exist. Default cd to /bin/")
         shell.run("cd /bin/")
     end
 
     if fs.exists(cshell) then
+        log.writeLine("Chosen shell ("..cshell..") exists. Run.")
+        log.close()
         shell.run(cshell)
     else
-        if fs.exists("/usr/bin/"..sh)  then
+        log.write("Chosen shell ("..cshell..") does not exist, ")
+        if fs.exists("/usr/bin/"..sh..".lua")  then
+            log.write("however defined default shell ("..sh..") does exist, run that instead.\n")
             print(cshell,"does not exist, using /usr/bin/"..sh)
+            log.close()
             shell.run("/usr/bin/"..sh)
         else
+        log.write("neither does /usr/bin/"..sh.."\n")
             print(cshell,"and /usr/bin/"..sh,"don't exist, use dash or download it")
             if fs.exists("/usr/bin/dash.lua") then
+                log.writeLine("dash exists, run that.")
+                log.close()
                 shell.run("/usr/bin/dash.lua")
             else
+                log.writeLine("dash doesn't exist; and I ask why.")
+                log.writeLine("Whatever, just download and run.")
                 shell.run("wget https://raw.githubusercontent.com/XDuskAshes/dawn/idev/usr/bin/dash.lua /usr/bin/dash.lua")
+                log.writeLine("Downloaded, run.")
+                log.close()
                 shell.run("/usr/bin/dash.lua")
             end
         end
