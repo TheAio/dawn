@@ -21,6 +21,8 @@ local function loadingBar(step,steps,YPos)
     print(string.rep(" ",maxX))
     term.setBackgroundColor(colors.red)
     print(string.rep(" ",((step/steps)*maxX)))
+    term.setBackgroundColor(oldBGC)
+    term.setCursorPos(oldCursorPosX,oldCursorPosY)
 end
 
 --[[
