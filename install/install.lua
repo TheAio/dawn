@@ -14,12 +14,13 @@ local function loadingBar(step,steps,YPos)
     local oldBGC = term.getBackgroundColor()
     maxX,maxY = term.getSize()
     if YPos == nil then --this part may not be needed but is here if something changes in the future
-        YPos = maxY
+        YPos = maxY-1
     end
     term.setCursorPos(1,YPos)
     term.setBackgroundColor(colors.gray)
     print(string.rep(" ",maxX))
     term.setBackgroundColor(colors.red)
+    term.setCursorPos(1,YPos)
     print(string.rep(" ",((step/steps)*maxX)))
     term.setBackgroundColor(oldBGC)
     term.setCursorPos(oldCursorPosX,oldCursorPosY)
