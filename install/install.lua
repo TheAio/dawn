@@ -2,11 +2,29 @@
 
 local spinner = {"|","/","-","\\"}
 local stage = 0
+local stages = 6
 local rfs = {}
 local files = {}
 local user
 local pass
 local rpass
+
+local function loadingBar(step,steps,YPos)
+    local oldCursorPosX,oldCursorPosY = term.getCursorPos()
+    local oldBGC = term.getBackgroundColor()
+    maxX,maxY = term.getSize()
+    if YPos == nil then --this part may not be needed but is here if something changes in the future
+        YPos = maxY-1
+    end
+    term.setCursorPos(1,YPos)
+    term.setBackgroundColor(colors.gray)
+    print(string.rep(" ",maxX))
+    term.setBackgroundColor(colors.red)
+    term.setCursorPos(1,YPos)
+    print(string.rep(" ",((step/steps)*maxX)))
+    term.setBackgroundColor(oldBGC)
+    term.setCursorPos(oldCursorPosX,oldCursorPosY)
+end
 
 --[[
     stage = (stage % 4) + 1
@@ -34,6 +52,7 @@ end
 
 term.clear()
 term.setCursorPos(1,1)
+loadingBar(1,stages,nil)
 print("Welcome to Dawn OS, a simple, *NIX-Like operating system for YOUR ComputerCraft:Tweaked system!")
 print("")
 print("For now, the installer will only install from the 'idev' branch of Dawn, however in the future you will be able to download a stable release version of Dawn!")
@@ -49,6 +68,7 @@ print("Press any key to continue...")
         end
 term.clear()
 term.setCursorPos(1,1)
+loadingBar(2,stages,nil)
 print("First, we'll need to setup a user account.")
 print("Enter a username and password as prompted:")
 while true do
@@ -72,7 +92,6 @@ while true do
         break
     end
 end
-
 print("Press any key to continue...")
         while true do
             local event = {os.pullEvent()}
@@ -85,6 +104,7 @@ print("Press any key to continue...")
 
 term.clear()
 term.setCursorPos(1,1)
+loadingBar(3,stages,nil)
 print("Now set a password for the root account.")
 while true do
     write("Root password: ")
@@ -110,6 +130,7 @@ print("Press any key to continue...")
 
 term.clear()
 term.setCursorPos(1,1)
+loadingBar(4,stages,nil)
 print("Now just a few quick questions.")
 print("Would you like a home directory? (/home/"..user..")")
 print("[Y/n]")
@@ -131,6 +152,7 @@ local home
             end
         end
     end
+loadingBar(5,stages,nil)
 print("Which shell would you like to use?")
 print("(1) - dash")
 print("(2) - minterm")
@@ -153,7 +175,7 @@ local sh
         end
     end
 
-
+loadingBar(6,stages,nil)
 print("Press any key to continue...")
         while true do
             local event = {os.pullEvent()}
