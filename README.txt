@@ -41,7 +41,9 @@ Open the issues tab and submit an issue if you find a bug. I (or anyone willing)
 Fork the repo, make changes, then make a pull request. Code will be reviewed before acceptance.
 
 3. Commiting to the repo directly
-If you ask nicely, or make up to 5 useful commits and/or issues, you can be added to the list of contributors who can contribute
+If you ask nicely, you can.
+
+Making up to 3 useful commits, pull requests and/or issues, you can be added to the list of contributors who can contribute
 to the repo directly.
 
 +==========================================================+
