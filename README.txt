@@ -5,8 +5,8 @@ Development end: TBD
 +==========================================================+
 
 === IMPORTANT NOTE ===
-All code in this project is under the GNU GPL 3.0, and failure to modify or otherwise redistribute without following the
-license terms can lead to formal action.
+All code in this project is under the GNU GPL 3.0, and failure to modify or otherwise redistribute 
+without following the license terms can lead to formal action.
 
 I take free software seriously.
 Especially my own.
