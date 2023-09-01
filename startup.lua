@@ -1,5 +1,40 @@
 shell.run("set shell.allow_disk_startup false")
+
+local function e(s)
+    return s == nil or s == ""
+end
+
+local id = os.getComputerID()
+local label = os.getComputerLabel()
+local ComLab
+local comname
+
+if label == nil then
+    ComLab = id
+else
+    ComLab = label
+end
+
+if fs.exists("/etc/hostname") then
+    local handle = fs.open("/etc/hostname","r")
+    comname = handle.readLine()
+    handle.close()
+
+    if e(comname) then
+        local handle = fs.open("/etc/hostname","w")
+        handle.writeLine("DAWNOS-"..ComLab)
+    end
+else
+    local handle = fs.open("/etc/hostname","w")
+    handle.writeLine("DAWNOS-"..ComLab)
+    handle.close()
+end
+
 term.clear()
+
+local handle = fs.open("/etc/hostname","r")
+comname = handle.readLine()
+handle.close()
 
 local spinner = {"|","/","-","\\"}
 local stage = 0
@@ -8,19 +43,10 @@ local handle = fs.open("/etc/logs/startup","w")
 handle.writeLine("DAWN CP-BSL (Computer Post-Boot State Log)")
 
 local tSizex, tSizey = term.getSize()
-local id = os.getComputerID()
-local label = os.getComputerLabel()
-local ComLab
 
-if label == nil then
-    ComLab = id
-else
-    ComLab = label
-end
+shell.run("label set "..comname)
 
-local function e(s)
-    return s == nil or s == ""
-end
+handle.writeLine("set computer label to "..comname)
 
 term.clear()
 term.setCursorPos(1,1)

@@ -69,16 +69,16 @@ function i.ynae.ypref() --presents a yes/no answer prompt with yes as the defaul
         if eventD == "key" then
             local k = event[2]
             if k == keys.y then
-              write("y")
+              write("y\n")
               yn = true
               break
             elseif k == keys.n then
-                write("n")
+                write("n\n")
                 yn = false
                 break
             end
         else
-            write("y")
+            write("y\n")
             yn = true
             break
         end
