@@ -40,7 +40,64 @@ local function t()
     term.setCursorPos(tCurs,yCurs)
 end
 
+local function fetchConfig()
+    useFileBasedInputs = false
+    fileBasedInputPath = "/tmp/dash-input.temp"
+    runFolderAtStart = false
+    startFolderPath = ""
+    if fs.exists("/etc/dash.conf") then
+        confHandle = fs.open("/etc/dash.conf","r")
+        confFile={}
+        while true do
+            local i = confHandle.readLine()
+            if i == nil then
+                break
+            else
+                confFile[#confFile+1] = i
+            end
+        end
+        confHandle.close()
+        for i=1,#confFile do
+            local line = confFile[i]
+            if line=="useFileBasedInputs:" then
+                if confFile[i+1] == "true" then
+                    useFileBasedInputs = true
+                else
+                    useFileBasedInputs = false
+                end
+            elseif line == "fileBasedInputPath:" then
+                fileBasedInputPath = confFile[i+1]
+            elseif line=="runFolderAtStart:" then
+                if confFile[i+1] == "true" then
+                    runFolderAtStart = true
+                else
+                    runFolderAtStart = false
+                end
+            elseif line == "startFolderPath:" then
+                startFolderPath = confFile[i+1]
+            end
+        end
+    end
+end
+
+fetchConfig()
+
 t()
+
+if runFolderAtStart then
+    if fs.exists(startFolderPath) and fs.isDir(startFolderPath) then
+        local folderList = fs.list(startFolderPath)
+        for i=1, #folderList do
+            if not fs.isDir(startFolderPath.."/"..folderList[i]) then
+                if term.isColor() then
+                    shell.run("bg",startFolderPath.."/"..folderList[i])
+                else
+                    shell.run(startFolderPath.."/"..folderList[i])
+                end
+            end
+        end
+    end
+end
 
 while true do
     if fs.exists("/etc/config/colorterm") then
@@ -48,7 +105,19 @@ while true do
     end
     write(user.."-$")
     term.setTextColor(colors.white)
-    local input = read()
+    if useFileBasedInputs then
+        if fs.exists(fileBasedInputPath) then
+            inputFileHandle = fs.open(fileBasedInputPath,"r")
+            input=inputFileHandle.readAll()
+            inputFileHandle.close()
+            fs.delete(fileBasedInputPath)
+        else
+            printError("Error: input file path not found '"..fileBasedInputPath.."'")
+            input = read()
+        end
+    else
+        input = read()
+    end
     if isempty(input) then
         write("")
     elseif input == "reboot" then
